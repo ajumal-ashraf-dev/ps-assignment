@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import {
+    BrowserRouter,
+    Switch,
+    Route
+} from "react-router-dom";
 
 import './index.css';
 import FrontPage from './pages/FrontPage';
@@ -19,7 +24,13 @@ const store = createStore(rootReducer, preloadedState, applyMiddleware(thunk))
 ReactDOM.hydrate(
     <React.StrictMode>
         <Provider store={store}>
-            <FrontPage />
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/page/:page">
+                        <FrontPage />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

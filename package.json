@@ -13,11 +13,13 @@
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "ignore-styles": "^5.0.1",
+    "moment": "^2.26.0",
     "node-sass": "^4.14.1",
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

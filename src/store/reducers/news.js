@@ -3,7 +3,8 @@ import {
 } from '../actions/news';
 
 const initialState = {
-    list: []
+    list: [],
+    page: 0
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +12,8 @@ export default (state = initialState, action) => {
         case GET_NEWS: 
             return {
                 ...state,
-                list: action.data
+                list: action.data.hits,
+                page: action.data.page
             };
         default:
             return state;

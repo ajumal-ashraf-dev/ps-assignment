@@ -5,7 +5,12 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
+import {
+    StaticRouter,
+    Switch,
+    Route
+} from "react-router-dom";
 
 import newsReducer from './store/reducers/news';
 import FrontPage from './pages/FrontPage';
@@ -20,12 +25,18 @@ function handleRender(req, res) {
         news: newsReducer
     });
     const store = createStore(rootReducer, applyMiddleware(thunk));
-
-    store.dispatch(newsActions.getNews())
+    const page = req.params.page || 0;
+    store.dispatch(newsActions.getNews(page))
     .then(function() {
         const html = renderToString(
             <Provider store={store}>
-                <FrontPage />
+                <StaticRouter>
+                    <Switch>
+                        <Route exact path="/page/:page">
+                            <FrontPage />
+                        </Route>
+                    </Switch>
+                </StaticRouter>
             </Provider>
         );
     
@@ -52,8 +63,10 @@ function handleRender(req, res) {
         });
     })
 }
-
-router.use('^/$', handleRender)
+router.use('^/$', (req, res) => {
+    res.redirect('/page/0');
+})
+router.use('^/page/:page$', handleRender)
 router.use(
   express.static(path.resolve(__dirname, '..', 'build'), { maxAge: '30d' })
 )

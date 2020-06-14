@@ -1,10 +1,12 @@
+$primary-color: rgb(255, 102, 0);
+
 .table{
     display: table;
     width: 100%;
 
     .table-head{
         display: table-row;
-        background-color: rgb(255, 102, 0);
+        background-color: $primary-color;
         padding: 1px;
         &>div{
             display: table-cell;
@@ -38,12 +40,23 @@
             &.details{
                 text-align: left;
                 padding-left: 0;
-                font-size: 11pt;
+
+                a{
+                    text-decoration: none;
+                    color: #000;
+                }
+
+                a:hover{
+                    text-decoration: underline;
+                }
+
+                .title{
+                    font-size: 11pt;
+                }
 
                 .link{
                     color: rgb(129,131,131);
                     font-size: 8pt;
-                    text-decoration: none;
                     &::before{
                         content: " (";
                         color: rgb(200,202,202);
@@ -62,7 +75,6 @@
                 }
 
                 .author{
-                    text-decoration: none;
                     font-size: 9pt;
                     padding: 0 5px;
                 }
@@ -74,7 +86,6 @@
 
                 .hide-btn{
                     font-size: 9pt;
-                    text-decoration: none;
                     &::before{
                         content: " [ ";
                         color: rgb(129,131,131);
@@ -118,5 +129,29 @@
                 border-bottom: 5px solid rgb(155,152,153);
             }
         }
+    }
+}
+
+.pagination{
+    border-bottom: 3px solid $primary-color;
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgb(246,246,239);
+    
+    a{
+        text-decoration: none;
+        padding: 10px;
+        &:hover:not(.disabled){
+            text-decoration: underline;
+        }
+        &.disabled{
+            color: #ffc59e;
+        }
+    }
+    *{
+        color: $primary-color;
+        font-weight: bold;
+        font-size: 10pt;
+        padding: 10px 0;
     }
 }
