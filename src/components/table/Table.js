@@ -11,7 +11,7 @@ import * as newsActions from '../../store/actions/news';
 
 const Table = () => {
     const dispatch = useDispatch();
-    const { list: newsList, page: currentPage } = useSelector(state => state.news);
+    const { list: newsList, page: currentPage, hiddenPosts } = useSelector(state => state.news);
     const { page: urlPage } = useParams();
 
     useEffect(() => {
@@ -23,6 +23,12 @@ const Table = () => {
     const getDomainName = (url) => {
         return url ? url.replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0] : "";
     }
+
+    const handleHide = (id) => {
+        dispatch(newsActions.hidePost(id));
+    }
+
+    const displayList = newsList.filter(item => !hiddenPosts.includes(item.objectID))
 
     return <React.Fragment>
         <div className="table">
@@ -41,7 +47,7 @@ const Table = () => {
                 </div>
             </div>
             {
-                newsList.map((item) => {
+                displayList.map((item) => {
                     let pointLevel = 1;
                     
                     if(item.points < 80){
@@ -70,7 +76,7 @@ const Table = () => {
                             <span className="by">by</span>
                             <a href="#" className="author">{item.author}</a>
                             <span className="time">{moment(item.created_at).fromNow()}</span>
-                            <a href="#" className="hide-btn">hide</a>       
+                            <a href="#" onClick={() => {handleHide(item.objectID)}} className="hide-btn">hide</a>       
                         </div>
                     </div>
                 })

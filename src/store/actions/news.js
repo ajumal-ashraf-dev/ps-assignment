@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export const GET_NEWS = "GET_NEWS";
+export const HIDE_POST = "HIDE_POST";
+export const REFRESH_STORE = "REFRESH_STORE";
 
 export const getNews = (page = 0) => {
     return async (dispatch, getState) => {
@@ -17,4 +19,12 @@ export const getNews = (page = 0) => {
         }
         dispatch({type: GET_NEWS, data: responseData});
     }
+}
+
+export const hidePost = (id) => {
+    return {type: HIDE_POST, data: id};
+}
+
+export const refreshStore = () => {
+    return {type: REFRESH_STORE};
 }
