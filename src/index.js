@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import './index.css';
+import FrontPage from './pages/FrontPage';
+import newsReducer from './store/reducers/news';
+
+const rootReducer = combineReducers({
+    news: newsReducer
+});
+
+const preloadedState = window.__PRELOADED_STATE__
+delete window.__PRELOADED_STATE__
+const store = createStore(rootReducer, preloadedState)
+
+ReactDOM.hydrate(
+    <React.StrictMode>
+        <Provider store={store}>
+            <FrontPage />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
