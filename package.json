@@ -11,6 +11,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "babel-polyfill": "^6.26.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "highcharts": "^8.1.1",
@@ -28,7 +29,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run build & node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -50,7 +51,6 @@
     ]
   },
   "devDependencies": {
-    "babel-polyfill": "^6.26.0",
     "nodemon": "^2.0.4"
   }
 }
