@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
             let hiddenPosts = localStorage.getItem('hiddenPosts');
             let upvotedPosts = localStorage.getItem('upvotes');
             if(hiddenPosts){
-                hiddenPosts = JSON.parse(hiddenPosts);
+               hiddenPosts = JSON.parse(hiddenPosts);
             }
             if(upvotedPosts){
                 upvotedPosts = JSON.parse(upvotedPosts);

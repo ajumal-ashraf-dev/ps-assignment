@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import compression from 'compression';
 import express from 'express';
 import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -26,15 +27,15 @@ function handleRender(req, res) {
     });
     const store = createStore(rootReducer, applyMiddleware(thunk));
     const page = req.params.page || 0;
+
     store.dispatch(newsActions.getNews(page))
     .then(function() {
         const html = renderToString(
             <Provider store={store}>
-                <StaticRouter>
+                <StaticRouter location={req.url}>
                     <Switch>
-                        <Route exact path="/page/:page">
-                            <FrontPage />
-                        </Route>
+                        <Route exact path="/page/:page" component={FrontPage}/>
+                        <Route component={FrontPage}/>
                     </Switch>
                 </StaticRouter>
             </Provider>
@@ -63,14 +64,14 @@ function handleRender(req, res) {
         });
     })
 }
-router.use('^/$', (req, res) => {
-    res.redirect('/page/0');
-})
+
+router.use('^/$', handleRender)
 router.use('^/page/:page$', handleRender)
 router.use(
-  express.static(path.resolve(__dirname, '..', 'build'), { maxAge: '30d' })
+  express.static(path.resolve(__dirname, '..', 'build'), { maxAge: '31557600s' })
 )
 
-app.use(router)
+app.use(compression());
+app.use(router);
 
 app.listen(PORT);

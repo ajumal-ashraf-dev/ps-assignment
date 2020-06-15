@@ -34,6 +34,7 @@ const Table = ({list}) => {
     }
 
     return <React.Fragment>
+        <h1 className="sr-only">Hacker News</h1>
         <div className="table">
             <div className="table-head hidden-xs">
                 <div>
@@ -76,12 +77,12 @@ const Table = ({list}) => {
                         <div className="mobile-btns">
                             <div>
                                 <a href="#" title="upvote" onClick={(e) => {handleUpvote(item.objectID, e)}} className="upvote-btn">
-                                    <img src="../assets/iconmonstr-arrow-1.svg"/>
+                                    <img alt="upvote" src="../assets/iconmonstr-arrow-1.svg"/>
                                     {item.points}
                                 </a>
                             </div>
                             <div>
-                                <img src="../assets/iconmonstr-speech-bubble-15.svg"/>
+                                <img alt="comment" src="../assets/iconmonstr-speech-bubble-15.svg"/>
                                 {item.num_comments}        
                             </div>
                             <div>
