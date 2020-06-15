@@ -6,4 +6,4 @@ require('@babel/register')({
     presets: ['@babel/preset-env', '@babel/preset-react']
 })
 
-require('./src/apps.js')
+require('./src/app.js')
