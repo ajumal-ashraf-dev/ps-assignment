@@ -6,7 +6,7 @@ export const UPVOTE_POST = "UPVOTE_POST";
 export const REFRESH_STORE = "REFRESH_STORE";
 
 export const getNews = (page = 0) => {
-    return async (dispatch, getState) => {
+    return async dispatch => {
         
         const response = await axios.get('https://hn.algolia.com/api/v1/search_by_date?tags=story&page=' + page, {
             headers: {
@@ -14,7 +14,7 @@ export const getNews = (page = 0) => {
             }
         });
         const responseData = response.data;
-        if(response.status != 200){
+        if(response.status !== 200){
             console.log("Error fetching data");
             return;
         }

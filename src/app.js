@@ -19,7 +19,7 @@ import * as newsActions from './store/actions/news';
 
 const app = express();
 const router = express.Router();
-const PORT = 3000;
+const _port = 3000;
 
 function handleRender(req, res) {
     const rootReducer = combineReducers({
@@ -74,4 +74,4 @@ router.use(
 app.use(compression());
 app.use(router);
 
-app.listen(PORT);
+app.listen(process.env.PORT || _port);

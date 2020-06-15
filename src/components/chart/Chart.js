@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
  
 import './Chart.scss';
 

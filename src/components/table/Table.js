@@ -15,10 +15,10 @@ const Table = ({list}) => {
     const { page: urlPage } = useParams();
 
     useEffect(() => {
-        if(currentPage != urlPage){
+        if(currentPage !== urlPage){
             dispatch(newsActions.getNews(urlPage));
         }
-    },[currentPage, urlPage])
+    },[dispatch, currentPage, urlPage])
     
     const getDomainName = (url) => {
         return url ? url.replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0] : "";
@@ -105,7 +105,7 @@ const Table = ({list}) => {
             }
         </div>
         <div className="pagination">
-            <Link to={currentPage == 0 ? "#" : "/page/" + (currentPage - 1)} className={currentPage === 0 ? "disabled":""}>Previous</Link>
+            <Link to={currentPage === 0 ? "#" : "/page/" + (currentPage - 1)} className={currentPage === 0 ? "disabled":""}>Previous</Link>
             <span> | </span>
             <Link to={"/page/" + (currentPage + 1)}>Next</Link>
         </div>
