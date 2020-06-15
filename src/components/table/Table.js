@@ -35,7 +35,7 @@ const Table = ({list}) => {
 
     return <React.Fragment>
         <div className="table">
-            <div className="table-head">
+            <div className="table-head hidden-xs">
                 <div>
                     Comments
                 </div>
@@ -73,13 +73,31 @@ const Table = ({list}) => {
                                 <i className="arrow-up"/>
                             </a>
                         </div>
+                        <div className="mobile-btns">
+                            <div>
+                                <a href="#" title="upvote" onClick={(e) => {handleUpvote(item.objectID, e)}} className="upvote-btn">
+                                    <img src="../assets/iconmonstr-arrow-1.svg"/>
+                                    {item.points}
+                                </a>
+                            </div>
+                            <div>
+                                <img src="../assets/iconmonstr-speech-bubble-15.svg"/>
+                                {item.num_comments}        
+                            </div>
+                            <div>
+                                <a href="#" onClick={() => {handleHide(item.objectID)}}>Hide</a>
+                            </div>
+                        </div>
                         <div className="details">
                             <a href={item.url} className="title">{item.title}</a>
-                            <a href={item.url} className="link">{getDomainName(item.url)}</a>
+                            {   
+                                item.url ?
+                                <a href={item.url} className="link">{getDomainName(item.url)}</a>:<span> </span>
+                            }
                             <span className="by">by</span>
                             <a href="#" className="author">{item.author}</a>
                             <span className="time">{moment(item.created_at).fromNow()}</span>
-                            <a href="#" onClick={() => {handleHide(item.objectID)}} className="hide-btn">hide</a>       
+                            <a href="#" onClick={() => {handleHide(item.objectID)}} className="hide-btn hidden-xs">hide</a>       
                         </div>
                     </div>
                 })
