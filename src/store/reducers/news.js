@@ -1,13 +1,15 @@
 import {
     GET_NEWS, 
     HIDE_POST,
+    UPVOTE_POST,
     REFRESH_STORE
 } from '../actions/news';
 
 const initialState = {
     list: [],
     page: 0,
-    hiddenPosts: []
+    hiddenPosts: [],
+    upvotes: {}
 }
 
 export default (state = initialState, action) => {
@@ -26,14 +28,31 @@ export default (state = initialState, action) => {
                 ...state,
                 hiddenPosts: posts
             }
+        case UPVOTE_POST:
+            const upvotes = {...state.upvotes};
+            if(upvotes[action.data]){
+                upvotes[action.data]++;
+            } else {
+                upvotes[action.data] = 1;
+            }
+            localStorage.setItem('upvotes', JSON.stringify(upvotes));
+            return {
+                ...state,
+                upvotes
+            }
         case REFRESH_STORE:
             let hiddenPosts = localStorage.getItem('hiddenPosts');
+            let upvotedPosts = localStorage.getItem('upvotes');
             if(hiddenPosts){
                 hiddenPosts = JSON.parse(hiddenPosts);
             }
+            if(upvotedPosts){
+                upvotedPosts = JSON.parse(upvotedPosts);
+            }
             return {
                 ...state,
-                hiddenPosts: hiddenPosts || []
+                hiddenPosts: hiddenPosts || [],
+                upvotes: upvotedPosts || {}
             }
         default:
             return state;

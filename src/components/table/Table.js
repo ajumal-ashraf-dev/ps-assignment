@@ -9,9 +9,9 @@ import {
 import './Table.scss';
 import * as newsActions from '../../store/actions/news';
 
-const Table = () => {
+const Table = ({list}) => {
     const dispatch = useDispatch();
-    const { list: newsList, page: currentPage, hiddenPosts } = useSelector(state => state.news);
+    const { page: currentPage } = useSelector(state => state.news);
     const { page: urlPage } = useParams();
 
     useEffect(() => {
@@ -28,7 +28,10 @@ const Table = () => {
         dispatch(newsActions.hidePost(id));
     }
 
-    const displayList = newsList.filter(item => !hiddenPosts.includes(item.objectID))
+    const handleUpvote = (id, e) => {
+        e.preventDefault();
+        dispatch(newsActions.upvotePost(id));
+    }
 
     return <React.Fragment>
         <div className="table">
@@ -47,7 +50,7 @@ const Table = () => {
                 </div>
             </div>
             {
-                displayList.map((item) => {
+                list.map((item) => {
                     let pointLevel = 1;
                     
                     if(item.points < 80){
@@ -66,7 +69,7 @@ const Table = () => {
                             {item.points}        
                         </div>
                         <div>
-                            <a href="#" title="upvote" className="upvote-btn">
+                            <a href="#" title="upvote" onClick={(e) => {handleUpvote(item.objectID, e)}} className="upvote-btn">
                                 <i className="arrow-up"/>
                             </a>
                         </div>

@@ -5,8 +5,7 @@ import HighchartsReact from 'highcharts-react-official'
  
 import './Chart.scss';
 
-const Chart = () => {
-    const newsList = useSelector(state => state.news.list);
+const Chart = ({list}) => {
     
     const options = {
         title: {
@@ -32,10 +31,10 @@ const Chart = () => {
                     fontWeight: 'bold'
                 }
             },
-            categories: newsList.map(obj => obj.objectID)
+            categories: list.map(obj => obj.objectID)
         },
         series: [{
-          data: newsList.map(obj => obj.points),
+          data: list.map(obj => obj.points),
           showInLegend: false,
           name: "Votes"
         }]
